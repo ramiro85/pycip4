@@ -1,0 +1,62 @@
+name: Publish to PyPI
+
+# Triggers on a GitHub Release being published. Create a release whose tag
+# matches the version in pyproject.toml (e.g. "v0.1.0") to publish that
+# version. Uses PyPI Trusted Publishing (OIDC) -- no API token is stored
+# in this repo; instead, register this exact workflow as a trusted
+# publisher for the "pycip4" project at:
+#   https://pypi.org/manage/project/pycip4/settings/publishing/
+# (Owner: <github-org-or-user>, Repo: pycip4, Workflow: publish.yml, Environment: pypi)
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pip install -e ".[dev]"
+      - run: ruff check pycip4/ tests/
+      - run: mypy pycip4/ tests/
+      - run: pytest tests/ -v
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: pip install build twine
+      - run: python -m build
+      - run: twine check dist/*
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write  # required for PyPI Trusted Publishing (OIDC)
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1
