@@ -77,7 +77,7 @@ from pycip4.models.xjdf import Parameter, Product, ResourceSet, Set, XJDFNode
 from pycip4.parser.schema_validator import SchemaValidator
 from pycip4.parser.xml_parser import CIP4Parser, iter_parse_jdf_nodes
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 __all__ = [
     "__version__",
