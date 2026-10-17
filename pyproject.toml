@@ -57,12 +57,12 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/bennets-graphics/pycip4"
-Documentation = "https://github.com/bennets-graphics/pycip4#readme"
-Issues = "https://github.com/bennets-graphics/pycip4/issues"
+Homepage = "https://github.com/ramiro85/pycip4"
+Documentation = "https://github.com/ramiro85/pycip4#readme"
+Issues = "https://github.com/ramiro85/pycip4/issues"
 
 [tool.hatch.build.targets.wheel]
-packages = ["pycip4"]
+packages = ["src/pycip4"]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
