@@ -19,10 +19,13 @@ Format), **XJDF** (Exchange JDF 2.0+), and CIP4 **MIME multipart** packaging.
 ## Install
 
 ```bash
-pip install -e ".[dev]"
+pip install pycip4
 ```
 
 Requires Python 3.11+.
+
+Contributing or running the test suite locally? See [Development](#development)
+below — that uses a different, editable install.
 
 ## Quick start
 
