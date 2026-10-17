@@ -107,7 +107,7 @@ validator.validate(jdf)  # raises XSDSchemaValidationError on violation
 ## Architecture
 
 ```
-pycip4/
+src/pycip4/
 ├── core/
 │   ├── exceptions.py   # CIP4Exception hierarchy
 │   └── types.py        # namespaces, MIME types, enums
@@ -153,9 +153,9 @@ class AcmeCustomResource(CIP4Element):
 ```bash
 pip install -e ".[dev]"
 pytest                    # run the test suite
-mypy pycip4/ tests/       # strict type checking
-ruff check pycip4/ tests/ # linting
-black pycip4/ tests/      # formatting
+mypy src/pycip4 tests/       # strict type checking
+ruff check src/pycip4 tests/ # linting
+black src/pycip4 tests/      # formatting
 ```
 
 ## Standards coverage

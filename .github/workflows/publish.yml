@@ -28,8 +28,8 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - run: pip install -e ".[dev]"
-      - run: ruff check pycip4/ tests/
-      - run: mypy pycip4/ tests/
+      - run: ruff check src/pycip4 tests/
+      - run: mypy src/pycip4 tests/
       - run: pytest tests/ -v
 
   build:
